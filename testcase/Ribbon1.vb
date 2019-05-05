@@ -185,10 +185,19 @@ Public Class Ribbon1
                 MsgBox("Please use format [PC]")
                 arr1(1) = "0"
             End If
+        ElseIf ver = "APP" Then
+            If InStr(arr(0), "】") Then
+                arr1 = Split(arr(0), "】")
+            ElseIf InStr(arr(0), "]") Then
+                arr1 = Split(arr(0), "]")
+            Else
+                MsgBox("Please use format [APP]")
+                arr1(1) = "0"
+            End If
         Else
             'MsgBox(arr(0))
             'MsgBox(arr(1))
-            If InStr(arr(0), "H5") Or InStr(arr(0), "小程序") Then
+            If InStr(arr(0), "H5") Or InStr(arr(0), "小程序") Or InStr(arr(0), "h5") Then
                 If InStr(arr(0), "】") Then
                     arr1 = Split(arr(0), "】")
                 ElseIf InStr(arr(0), "]") Then
@@ -286,6 +295,15 @@ Public Class Ribbon1
             'MsgBox("5")
         Next
         Con.Close()
+    End Function
+    Public Function copy_to_access(xlsheet1, arr1, a1, ver)
+        If a1 <> 0 Then
+            For i = 0 To a1 - 1
+                arr1(i, 0) = "select step from " + ver + " where title = '" + Trim(xlsheet1.Cells(i + 2, 2).value) + "'"
+                arr1(i, 1) = "insert into " + ver + "(title,step) values('" + xlsheet1.Cells(i + 2, 2).value + "','" + xlsheet1.Cells(i + 2, 3).value + "')"
+            Next
+            updateaccess(arr1, a1)
+        End If
     End Function
     Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs) Handles Button1.Click
         '将xmind的内容以句号分割，前面那句代表标题，后面那句代表预期结果
@@ -421,6 +439,9 @@ Public Class Ribbon1
                 If InStr(LCase(CStr(xlSheet.Cells(i, col2).value)), "pc") Then
                     sql_text(i - 2) = get_sqltext(CStr(xlSheet.Cells(i, col2).value), "PC")
                     'MsgBox(sql_text(i - 2))
+                ElseIf InStr(LCase(CStr(xlSheet.Cells(i, col2).value)), "app") Then
+                    sql_text(i - 2) = get_sqltext(CStr(xlSheet.Cells(i, col2).value), "APP")
+                    'MsgBox(sql_text(i - 2))
                 Else
                     sql_text(i - 2) = get_sqltext(CStr(xlSheet.Cells(i, col2).value), "H5")
                     'MsgBox(sql_text(i - 2))
@@ -488,6 +509,7 @@ Public Class Ribbon1
         Dim xlBook As Microsoft.Office.Interop.Excel.Workbook
         Dim xlSheet1 As Microsoft.Office.Interop.Excel.Worksheet
         Dim xlSheet2 As Microsoft.Office.Interop.Excel.Worksheet
+        Dim xlSheet3 As Microsoft.Office.Interop.Excel.Worksheet
 
         xlApp.Visible = False
         xlApp.Workbooks.Open(path)
@@ -495,30 +517,20 @@ Public Class Ribbon1
         xlBook = xlApp.Workbooks(1)
         xlSheet1 = xlBook.Sheets("PC")
         xlSheet2 = xlBook.Sheets("H5-小程序")
+        xlSheet3 = xlBook.Sheets("APP")
 
         '获取excel行数
         Dim a1 = getLineNumber(xlSheet1, 2)
         Dim a2 = getLineNumber(xlSheet2, 2)
+        Dim a3 = getLineNumber(xlSheet3, 2)
 
         Dim arr1(a1, 1) As String
         Dim arr2(a2, 1) As String
+        Dim arr3(a3, 1) As String
 
-        If a1 <> 0 Then
-            For i = 0 To a1 - 1
-                arr1(i, 0) = "select step from PC where title = '" + Trim(xlSheet1.Cells(i + 2, 2).value) + "'"
-                arr1(i, 1) = "insert into PC(title,step) values('" + xlSheet1.Cells(i + 2, 2).value + "','" + xlSheet1.Cells(i + 2, 3).value + "')"
-            Next
-            updateaccess(arr1, a1)
-        End If
-
-        If a2 <> 0 Then
-            For i = 0 To a2 - 1
-                arr2(i, 0) = "select step from H5 where title = '" + Trim(xlSheet2.Cells(i + 2, 2).value) + "'"
-                arr2(i, 1) = "insert into H5(title,step) values('" + xlSheet2.Cells(i + 2, 2).value + "','" + xlSheet2.Cells(i + 2, 3).value + "')"
-            Next
-            updateaccess(arr2, a2)
-        End If
-
+        copy_to_access(xlSheet1, arr1, a1, "PC")
+        copy_to_access(xlSheet2, arr2, a2, "H5")
+        copy_to_access(xlSheet3, arr3, a3, "APP")
 
         xlApp.Quit()
         GC.Collect()
