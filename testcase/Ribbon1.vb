@@ -30,11 +30,11 @@ Public Class Ribbon1
     '初始化用例标题行数
     Public text_row = 2
     '设置创建人名字
-    Public create_name = "曾云龙"
+    Public create_name = "牛鹏"
     '设置路径
     Public path_address = "C:\Users\Public\Documents"
     '设置文件保存路径
-    Public filename_path = "C:\Users\12959\测试资料\xmind\"
+    Public filename_path = "C:\Users\Public\xmind\"
     '设置excel路径
     Public path = path_address + "\testcase.xlsx"
     '设置database地址
@@ -411,6 +411,7 @@ Public Class Ribbon1
             xlSheet.Columns(col3).Hidden = True
 
             xlSheet.Cells(1, 1).Interior.ColorIndex = 0  '设置单元格背景颜色
+            MsgBox("Sorted!")
         ElseIf flag = "false" Then
             MsgBox("Please copy to the first cell!")
             xlSheet.Cells(1, 1).Interior.ColorIndex = 27  '设置单元格背景颜色
@@ -463,7 +464,7 @@ Public Class Ribbon1
             MsgBox("The title doesn't exist [], please fill correct!")
         End If
 
-
+        MsgBox("Finished!")
 
     End Sub
 
@@ -534,6 +535,7 @@ Public Class Ribbon1
 
         xlApp.Quit()
         GC.Collect()
+        MsgBox("Updated")
 
     End Sub
 End Class
