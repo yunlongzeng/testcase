@@ -30,11 +30,11 @@ Public Class Ribbon1
     '初始化用例标题行数
     Public text_row = 2
     '设置创建人名字
-    Public create_name = "牛鹏"
+    Public create_name = "曾云龙"
     '设置路径
     Public path_address = "C:\Users\Public\Documents"
     '设置文件保存路径
-    Public filename_path = "C:\Users\Public\xmind\"
+    Public filename_path = "C:\Users\12959\测试资料\xmind\"
     '设置excel路径
     Public path = path_address + "\testcase.xlsx"
     '设置database地址
@@ -437,10 +437,10 @@ Public Class Ribbon1
         For i = 2 To a + 1
 
             If InStr(CStr(xlSheet.Cells(i, col2).value), "】") Or InStr(CStr(xlSheet.Cells(i, col2).value), "]") Then
-                If InStr(LCase(CStr(xlSheet.Cells(i, col2).value)), "pc") Then
+                If InStr(LCase(CStr(xlSheet.Cells(i, col2).value)), "[pc]") Or InStr(LCase(CStr(xlSheet.Cells(i, col2).value)), "【pc】") Or InStr(LCase(CStr(xlSheet.Cells(i, col2).value)), "[pc】") Or InStr(LCase(CStr(xlSheet.Cells(i, col2).value)), "【pc]") Then
                     sql_text(i - 2) = get_sqltext(CStr(xlSheet.Cells(i, col2).value), "PC")
                     'MsgBox(sql_text(i - 2))
-                ElseIf InStr(LCase(CStr(xlSheet.Cells(i, col2).value)), "app") Then
+                ElseIf InStr(LCase(CStr(xlSheet.Cells(i, col2).value)), "[app]") Or InStr(LCase(CStr(xlSheet.Cells(i, col2).value)), "【app】") Or InStr(LCase(CStr(xlSheet.Cells(i, col2).value)), "[app】") Or InStr(LCase(CStr(xlSheet.Cells(i, col2).value)), "【app]") Then
                     sql_text(i - 2) = get_sqltext(CStr(xlSheet.Cells(i, col2).value), "APP")
                     'MsgBox(sql_text(i - 2))
                 Else
