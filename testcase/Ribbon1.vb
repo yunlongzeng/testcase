@@ -403,6 +403,14 @@ Public Class Ribbon1
 
             Next
 
+            '查询xmind内容是否包含换行
+            For i = row_num To row_num + 4
+                If (CStr(xlSheet.Cells(i + 1, 1).value) <> "") Then
+                    MsgBox("Line " & i + 1 & " is blank!")
+                End If
+
+            Next
+
             '清空copy进来的内容
             If a <> 0 Then
 
