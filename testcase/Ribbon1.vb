@@ -324,6 +324,10 @@ Public Class Ribbon1
         '获取最大列数
         Dim b = 0
         Dim text_row_re = text_row
+        '获取带句号的行数
+        Dim full_stop_num = 0
+        '获取xmind的总分支
+        Dim xmind_num = 0
 
         If flag = "true" Then
             '文件拷贝正确就执行执行筛查操作
@@ -344,6 +348,9 @@ Public Class Ribbon1
             For i = 1 To 1000
                 '创建一个循环，退出循环的条件是后一行空的累计等于上一行空行加2
                 blank_after = count_blank(i, blank_front)
+                If blank_after <= blank_front Then  '计算xmind总共多少分支
+                    xmind_num += 1
+                End If
                 For k = blank_after + 1 To 1000
                     If CStr(xlSheet.Cells(i, k).value) = "" Then
                         If b < k Then
@@ -368,8 +375,10 @@ Public Class Ribbon1
                         Dim arr() As String
                         If InStr(CStr(xlSheet.Cells(i, col_text).Value), "。") Then
                             arr = Split(xlSheet.Cells(i, col_text).value, "。")
+                            full_stop_num += 1
                         ElseIf InStr(CStr(xlSheet.Cells(i, col_text).Value), ".") Then
                             arr = Split(xlSheet.Cells(i, col_text).value, ".")
+                            full_stop_num += 1
                         End If
 
                         'MsgBox(xlSheet.Cells(i, col_text).value)
@@ -411,7 +420,11 @@ Public Class Ribbon1
             xlSheet.Columns(col3).Hidden = True
 
             xlSheet.Cells(1, 1).Interior.ColorIndex = 0  '设置单元格背景颜色
-            MsgBox("Sorted!")
+            If full_stop_num <> xmind_num Then
+                MsgBox("The lines total " & xmind_num & ", testcases are only " & full_stop_num & " ,please check!")
+            Else
+                MsgBox("Sorted!")
+            End If
         ElseIf flag = "false" Then
             MsgBox("Please copy to the first cell!")
             xlSheet.Cells(1, 1).Interior.ColorIndex = 27  '设置单元格背景颜色
@@ -462,7 +475,7 @@ Public Class Ribbon1
 
         Else
             MsgBox("The title doesn't exist [], please fill correct!")
-        End If
+            End If
 
         MsgBox("Finished!")
 
