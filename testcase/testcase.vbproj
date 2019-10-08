@@ -119,6 +119,21 @@
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
+    <Reference Include="mysql.data">
+      <HintPath>..\..\..\..\..\Desktop\mysqldll\mysql.data.dll</HintPath>
+    </Reference>
+    <Reference Include="mysql.data.entity">
+      <HintPath>..\..\..\..\..\Desktop\mysqldll\mysql.data.entity.dll</HintPath>
+    </Reference>
+    <Reference Include="mysql.visualstudio">
+      <HintPath>..\..\..\..\..\Desktop\mysqldll\mysql.visualstudio.dll</HintPath>
+    </Reference>
+    <Reference Include="mysql.web">
+      <HintPath>..\..\..\..\..\Desktop\mysqldll\mysql.web.dll</HintPath>
+    </Reference>
+    <Reference Include="MySQLDriverCS">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQLDriverCS\dll\MySQLDriverCS.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />

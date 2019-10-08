@@ -16,3 +16,7 @@ c:\users\12959\documents\visual studio 2015\Projects\testcase\testcase\obj\Debug
 c:\users\12959\documents\visual studio 2015\Projects\testcase\testcase\obj\Debug\testcase.dll
 c:\users\12959\documents\visual studio 2015\Projects\testcase\testcase\obj\Debug\testcase.xml
 c:\users\12959\documents\visual studio 2015\Projects\testcase\testcase\obj\Debug\testcase.pdb
+C:\Users\12959\documents\visual studio 2015\Projects\testcase\testcase\bin\Debug\mysql.data.dll
+C:\Users\12959\documents\visual studio 2015\Projects\testcase\testcase\bin\Debug\mysql.data.entity.dll
+C:\Users\12959\documents\visual studio 2015\Projects\testcase\testcase\bin\Debug\mysql.web.dll
+C:\Users\12959\documents\visual studio 2015\Projects\testcase\testcase\bin\Debug\MySQLDriverCS.dll
